@@ -1,9 +1,10 @@
-package com.gradezilla.web;
+package com.gradezilla.web.controller;
 
 import org.springframework.boot.autoconfigure.web.ErrorController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -11,13 +12,18 @@ import javax.servlet.http.HttpServletRequest;
  * Created by lenovo on 9/28/2015.
  */
 @Controller
-public class HomeController implements ErrorController {
+public class DashboardController implements ErrorController {
 
     private static final String PATH = "/error";
 
     @RequestMapping("/welcome")
     public String getHomePage(){
-        return "welcome";
+        return "dashboard";
+    }
+
+    @RequestMapping("/")
+    public String getHome(){
+        return "dashboard";
     }
 
     // Error page
@@ -31,6 +37,12 @@ public class HomeController implements ErrorController {
         }
         model.addAttribute("errorMessage", errorMessage);
         return "error";
+    }
+
+    @RequestMapping(value="/logout",method=RequestMethod.GET)
+    public String logout(HttpServletRequest request) {
+        request.getSession().invalidate();
+        return "login";
     }
 
     @Override

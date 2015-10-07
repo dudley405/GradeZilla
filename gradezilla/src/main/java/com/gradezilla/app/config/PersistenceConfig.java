@@ -1,10 +1,11 @@
 package com.gradezilla.app.config;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.core.env.Environment;
-import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.instrument.classloading.InstrumentationLoadTimeWeaver;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.hibernate4.HibernateExceptionTranslator;
@@ -19,8 +20,9 @@ import javax.sql.DataSource;
 import java.util.Properties;
 
 @Configuration
+@EnableAutoConfiguration
 @EnableTransactionManagement
-@EnableJpaRepositories(basePackages = "com.gradezilla.repository")
+@ComponentScan("com.gradezilla.dao")
 public class PersistenceConfig {
     @Autowired
     private Environment env;
@@ -35,13 +37,11 @@ public class PersistenceConfig {
     public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean factory = new LocalContainerEntityManagerFactoryBean();
         HibernateJpaVendorAdapter vendorAdapter = new HibernateJpaVendorAdapter();
-        vendorAdapter.setGenerateDdl(Boolean.TRUE);
         vendorAdapter.setShowSql(Boolean.TRUE);
         factory.setDataSource(dataSource());
         factory.setJpaVendorAdapter(vendorAdapter);
         factory.setPackagesToScan("com.gradezilla.dao.entity");
         Properties jpaProperties = new Properties();
-        jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hibernate.hbm2ddl.auto"));
         factory.setJpaProperties(jpaProperties);
         factory.afterPropertiesSet();
         factory.setLoadTimeWeaver(new InstrumentationLoadTimeWeaver());
