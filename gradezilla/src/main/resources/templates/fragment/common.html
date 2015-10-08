@@ -5,8 +5,22 @@
     <title>GradeZilla </title>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
     <link href="../../static/css/core.css" th:href="@{/css/core.css}"
-          rel="stylesheet" />
+          rel="stylesheet"/>
     <link href="../../static/css/bootstrap/bootstrap.min.css" th:href="@{/css/bootstrap/bootstrap.min.css}"
-          rel="stylesheet" />
+          rel="stylesheet"/>
+    <script type="text/javascript" src="../../static/js/jquery-1.11.3.min.js"
+            th:src="@{/js/jquery-1.11.3.min.js}"></script>
+    <script type="text/javascript" src="../../static/js/bootstrap/bootstrap.min.js"
+            th:src="@{/js/bootstrap/bootstrap.min.js}"></script>
+    <script type="text/javascript" src="../../static/js/app.js"
+            th:src="@{/js/app.js}"></script>
 </head>
+<body>
+<ul th:fragment="dashboardSidebar">
+    <li class="active"><a href="#">Overview</a></li>
+    <li><a href="#">Reports</a></li>
+    <li><a href="#">Analytics</a></li>
+    <li><a href="#">Export</a></li>
+</ul>
+</body>
 </html>

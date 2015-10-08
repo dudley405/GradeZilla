@@ -42,7 +42,7 @@ public class DashboardController implements ErrorController {
     @RequestMapping(value="/logout",method=RequestMethod.GET)
     public String logout(HttpServletRequest request) {
         request.getSession().invalidate();
-        return "login";
+        return "redirect:login?logout";
     }
 
     @Override
